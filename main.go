@@ -14,17 +14,27 @@ func formatAsDate(t time.Time) string {
 }
 
 type Todo struct {
-	CreatedBy string
-	Content   string
+	CreatedBy string  `form:"people"`
+	Content   string `form:"content"`
 	isDone    bool
 	Status    int
 }
+var todo []Todo
 
+func GetDataTodo(c *gin.Context) {
+	var b Todo
+	c.Bind(&b)
+	b.Status = 0
+	b.isDone = false
+	todo = append(todo,b)
+	c.HTML(http.StatusOK, "index.html",map[string]interface{}{
+		"todo": todo,
+	})
+}
 func main() {
 
-	todo := make([]Todo, 0, 5)
 	t := Todo{
-		CreatedBy: "eiji",
+		CreatedBy: "eiji" ,
 		Content:   "早起き",
 		Status:    0,
 		isDone:    false,
@@ -39,6 +49,6 @@ func main() {
 			"todo": todo,
 		})
 	})
-
+	router.GET("/yaru",GetDataTodo)
 	router.Run()
 }

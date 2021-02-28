@@ -1,10 +1,18 @@
 <html>
-<h1>
-    <ul>
-        {{range .todo}}
-        <li>{{.CreatedBy}}</li>
-        <li>{{.Content}}</li>
-        {{end}}
-    </ul>
-</h1>
+<body>
+
+<form action="/yaru">
+
+    Todo: <input type="text"name="content">
+    やる人: <input type="text"name="people">
+    <input type="submit" value="送信">
+</form>
+  <ul>
+      {{range .todo}}
+      <li> {{.CreatedBy}} {{.Content}}
+
+      </li>
+      {{end}}
+  </ul>
+</body>
 </html>
